@@ -13,10 +13,18 @@ jobs:
       - name: 'Checkout Repository'
         uses: actions/checkout@v2
 
-      - name: 'Activate Virtual Environment'  # Skip this step if you're not using a virtual environment
+      - name: 'Setup Python'
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: 'Create Virtual Environment'
         run: |
           python -m venv venv
-          source venv/bin/activate
+
+      - name: 'Activate Virtual Environment'
+        run: |
+          .\venv\Scripts\Activate
 
       - name: 'Install Dependencies'
         run: |
