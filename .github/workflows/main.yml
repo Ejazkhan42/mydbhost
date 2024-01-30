@@ -46,4 +46,4 @@ jobs:
 
       - name: 'Run Pytest'
         run: |
-          browserstack-sdk pytest  # Replace 'test_script.py' with the actual name of your pytest script
+          browserstack-sdk pytest -s test_Candidates.p # Replace 'test_script.py' with the actual name of your pytest script
