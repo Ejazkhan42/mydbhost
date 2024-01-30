@@ -1,0 +1,63 @@
+# from  Helper.packages.requirments import (setup_driver as driver,
+#                                           xpath_click_Xpath as XapthClick,
+#                                           dropdownEnter as dropText,
+#                                           dropdownXapth as dropXath,
+#                                           enter_text_xpath as XapthText,
+#                                           enter_text_clear_input_Xpath as ClearTexTXapth,
+#                                           Candates_DataSet,Base_Url,visibility,getTextValue,
+#                                           logout_user_Winuser)
+
+
+# from flask_socketio import socketio
+# from Helper.objects.LoginObjects import login,Home,Candidates
+# import subprocess
+# import pytest
+
+# @pytest.fixture
+# def Login_without_SSO():
+#     Login=Base_Url()
+#     driver=driver()
+#     driver.maximize_window()
+#     Candidate_Data=Candates_DataSet()
+#     for x in range(0,len(Login['UserName'])):
+#         base_url=Login['Base_Url'][x]
+#         driver.get(base_url)
+#         if driver.title=="Sign In":
+#             UserName=Login['UserName'][x]
+#             Password = Login['Password'][x]
+#             ClearTexTXapth(driver,login.username_xapth(),UserName)
+#             ClearTexTXapth(driver,login.password_xapth(),Password)
+#             XapthClick(driver,login.loginButton())
+#         else:
+#             pass
+#     Welcome()
+#     for x in range(0,len(Candidate_Data)):
+#         First=Candidate_Data["Fname"][x]
+#         Last=Candidate_Data["Lname"][x]
+#         Email=Candidate_Data["Email"][x]
+#         Candates_Add(First,Last,Email)
+#     driver.quit()
+#     # logout_user_Winuser()
+# def Welcome():
+#     XapthClick(driver,Home.Home_Button())
+#     XapthClick(driver, Home.MyClient_Group())
+#     XapthClick(driver, Home.Hiring_Tab())
+# def Candates_Add(FirtName,LastName,Email):
+#     XapthClick(driver,Candidates.Candidates_Tab())
+#     XapthClick(driver,Candidates.Search_Candidates_Button())
+#     XapthClick(driver, Candidates.add_button())
+#     XapthText(driver, Candidates.FirstName_Input(),FirtName)
+#     XapthText(driver, Candidates.LastName_Input(),LastName)
+#     # XapthText(driver, Candidates.Email_Input(), Email)
+#     XapthClick(driver,Candidates.Save_and_close_button())
+#     XapthClick(driver, Candidates.Yes_button())
+#     XapthClick(driver,Candidates.Done_Button())
+#     number = getTextValue(driver, Candidates.CandidatesNumber())
+#     print(number)
+#     visibility(driver,Candidates.add_button())
+#     XapthClick(driver, Candidates.Done_Button())
+
+# Login_without_SSO()
+# test_login.py
+
+# test_login.py
