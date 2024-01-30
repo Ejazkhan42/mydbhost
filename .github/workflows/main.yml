@@ -15,7 +15,8 @@ jobs:
 
       - name: 'Activate Virtual Environment'  # Skip this step if you're not using a virtual environment
         run: |
-          venv\Scripts\activate
+          python -m venv venv
+          source venv/bin/activate
 
       - name: 'Install Dependencies'
         run: |
