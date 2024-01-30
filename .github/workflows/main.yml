@@ -1,20 +1,40 @@
 name: 'BrowserStack Test'
-on: [push, pull_request]
+
+on:
+  push:
+  pull_request:
 
 jobs:
-  ubuntu-job:
-    name: 'BrowserStack Test on Ubuntu'
-    runs-on: ubuntu-latest
+  windows-job:
+    name: 'BrowserStack Test on Windows'
+    runs-on: windows-latest
+
     steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v2
+
+      - name: 'Activate Virtual Environment'  # Skip this step if you're not using a virtual environment
+        run: |
+          .\venv\Scripts\activate
+
+      - name: 'Install Dependencies'
+        run: |
+          pip install -r requirements.txt
+
       - name: 'BrowserStack Env Setup'
         uses: 'browserstack/github-actions/setup-env@master'
         with:
-          username:  'herbertgeorge_Xy9Fsv'
+          username: 'herbertgeorge_Xy9Fsv'
           access-key: 'QDm9h2VdJz9bi2vtKwbp'
-          build-name: BUILD_INFO
-          project-name: REPO_NAME
+          build-name: ${{ github.run_id }}
+          project-name: ${{ github.repository }}
+
       - name: 'BrowserStackLocal Setup'
         uses: 'browserstack/github-actions/setup-local@master'
         with:
           local-testing: start
           local-identifier: random
+
+      - name: 'Run Pytest'
+        run: |
+          browserstack-sdk pytest  # Replace 'test_script.py' with the actual name of your pytest script
