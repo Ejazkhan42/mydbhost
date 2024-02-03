@@ -1,49 +1,32 @@
-name: 'BrowserStack Test'
+name: test
 
 on:
-  push:
   pull_request:
 
 jobs:
-  windows-job:
-    name: 'BrowserStack Test on Windows'
-    runs-on: windows-latest
-
+  golang:
+    runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout Repository'
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - name: 'Setup Python'
-        uses: actions/setup-python@v2
+      - name: Setup Golang
+        uses: actions/setup-go@v3
         with:
-          python-version: 3.8
+          go-version: ~1.21.6
 
-      - name: 'Create Virtual Environment'
-        run: |
-          python -m venv venv
-
-      - name: 'Activate Virtual Environment'
-        run: |
-          .\venv\Scripts\Activate
-
-      - name: 'Install Dependencies'
-        run: |
-          pip install -r requirements.txt
-
-      - name: 'BrowserStack Env Setup'
-        uses: 'browserstack/github-actions/setup-env@master'
+      - uses: actions/cache@v3
         with:
-          username: 'herbertgeorge_Xy9Fsv'
-          access-key: 'QDm9h2VdJz9bi2vtKwbp'
-          build-name: ${{ github.run_id }}
-          project-name: ${{ github.repository }}
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
 
-      - name: 'BrowserStackLocal Setup'
-        uses: 'browserstack/github-actions/setup-local@master'
+      - name: Test
+        run: ci/test.sh
+
+      - name: Build
+        run: ci/build.sh
+
+      - uses: codecov/codecov-action@v3
         with:
-          local-testing: start
-          local-identifier: random
-
-      - name: 'Run Pytest'
-        run: |
-          browserstack-sdk pytest -s test_Candidates.py # Replace 'test_script.py' with the actual name of your pytest script
+          flags: go
